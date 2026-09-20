@@ -84,6 +84,7 @@ spec:
             targetBranch: master
             title: "kargo: promote ${{ imageFrom(\"ghcr.io/jerry-leung/hello-world\").Tag }} to stg"
         - uses: git-wait-for-pr
+          if: ${{ status('open-pr') != 'Skipped' }}
           config:
             repoURL: https://github.com/Jerry-Leung/hello-world-config.git
-            prNumber: ${{ outputs['open-pr'].prNumber }}
+            prNumber: ${{ outputs['open-pr'].pr.id }}
