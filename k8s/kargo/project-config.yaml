@@ -3,6 +3,8 @@ kind: ProjectConfig
 metadata:
   name: hello-world
   namespace: hello-world
+  labels:
+    managed-by: argocd
 spec:
   promotionPolicies:
     - stageSelector:
