@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: hello-world-config
+  namespace: dev
+data:
+  HELLO_MESSAGE: "Hello from ConfigMap!"

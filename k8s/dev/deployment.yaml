@@ -36,6 +36,9 @@ spec:
               port: 8080
             initialDelaySeconds: 15
             periodSeconds: 10
+          envFrom:
+            - configMapRef:
+                name: hello-world-config
           resources:
             requests:
               cpu: 100m
