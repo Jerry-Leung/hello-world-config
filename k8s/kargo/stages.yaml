@@ -67,14 +67,23 @@ spec:
               - key: spec.template.spec.containers.0.image
                 value: ${{ imageFrom("ghcr.io/jerry-leung/hello-world").RepoURL }}:${{ imageFrom("ghcr.io/jerry-leung/hello-world").Tag }}
         - uses: git-commit
+          as: commit
           config:
             path: ./repo
             message: "kargo: promote ${{ imageFrom(\"ghcr.io/jerry-leung/hello-world\").Tag }} to stg"
         - uses: git-push
+          as: push
           config:
             path: ./repo
-        - uses: argocd-update
+            generateTargetBranch: true
+        - uses: git-open-pr
+          as: open-pr
           config:
-            apps:
-              - name: hello-world-stg
-                namespace: argocd
+            repoURL: https://github.com/Jerry-Leung/hello-world-config.git
+            sourceBranch: ${{ outputs.push.branch }}
+            targetBranch: master
+            title: "kargo: promote ${{ imageFrom(\"ghcr.io/jerry-leung/hello-world\").Tag }} to stg"
+        - uses: git-wait-for-pr
+          config:
+            repoURL: https://github.com/Jerry-Leung/hello-world-config.git
+            prNumber: ${{ outputs['open-pr'].prNumber }}
