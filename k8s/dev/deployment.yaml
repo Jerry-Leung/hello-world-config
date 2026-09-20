@@ -39,6 +39,8 @@ spec:
           envFrom:
             - configMapRef:
                 name: hello-world-config
+            - secretRef:
+                name: hello-world-secret
           resources:
             requests:
               cpu: 100m
