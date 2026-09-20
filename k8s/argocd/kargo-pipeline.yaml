@@ -1,0 +1,20 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: hello-world-kargo
+  namespace: argocd
+  annotations:
+    kargo.akuity.io/authorized-stage: hello-world:dev
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/Jerry-Leung/hello-world-config.git
+    targetRevision: master
+    path: k8s/kargo
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: hello-world
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
