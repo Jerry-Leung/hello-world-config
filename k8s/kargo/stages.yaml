@@ -35,7 +35,7 @@ spec:
         - uses: argocd-update
           config:
             apps:
-              - name: hello-world-stg
+              - name: hello-world-dev
                 namespace: argocd
 
 ---
