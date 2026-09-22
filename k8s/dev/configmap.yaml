@@ -5,3 +5,4 @@ metadata:
   namespace: dev
 data:
   HELLO_MESSAGE: "Hello from ConfigMap!"
+  GREETING_SERVICE_URL: "http://greeting-service"
