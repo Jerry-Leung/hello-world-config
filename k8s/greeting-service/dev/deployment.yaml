@@ -34,6 +34,9 @@ spec:
               port: 8080
             initialDelaySeconds: 15
             periodSeconds: 10
+          envFrom:
+            - configMapRef:
+                name: greeting-service-config
           resources:
             requests:
               cpu: 100m
