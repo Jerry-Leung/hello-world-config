@@ -21,7 +21,7 @@ spec:
                 path: ./repo
         - uses: yaml-update
           config:
-            path: ./repo/k8s/dev/deployment.yaml
+            path: ./repo/k8s/hello-world/dev/deployment.yaml
             updates:
               - key: spec.template.spec.containers.0.image
                 value: ${{ imageFrom("ghcr.io/jerry-leung/hello-world").RepoURL }}:${{ imageFrom("ghcr.io/jerry-leung/hello-world").Tag }}
@@ -35,8 +35,9 @@ spec:
         - uses: argocd-update
           config:
             apps:
-              - name: hello-world
+              - name: hello-world-stg
                 namespace: argocd
+
 ---
 apiVersion: kargo.akuity.io/v1alpha1
 kind: Stage
@@ -62,7 +63,7 @@ spec:
                 path: ./repo
         - uses: yaml-update
           config:
-            path: ./repo/k8s/stg/deployment.yaml
+            path: ./repo/k8s/hello-world/stg/deployment.yaml
             updates:
               - key: spec.template.spec.containers.0.image
                 value: ${{ imageFrom("ghcr.io/jerry-leung/hello-world").RepoURL }}:${{ imageFrom("ghcr.io/jerry-leung/hello-world").Tag }}
